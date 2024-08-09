@@ -36,15 +36,15 @@ export function cloudformationResources({
   }
 
   return {
-    OpenSearchApplicationLogGroup: {
-      Type: 'AWS::Logs::LogGroup',
-      Properties: {
-        LogGroupName: {
-          'Fn::Sub':
-            '/aws/OpenSearchService/stacks/${AWS::StackName}/application-logs',
-        },
-      },
-    },
+    // OpenSearchApplicationLogGroup: {
+    //   Type: 'AWS::Logs::LogGroup',
+    //   Properties: {
+    //     LogGroupName: {
+    //       'Fn::Sub':
+    //         '/aws/OpenSearchService/stacks/${AWS::StackName}/application-logs',
+    //     },
+    //   },
+    // },
     OpenSearchAuditLogGroup: {
       Type: 'AWS::Logs::LogGroup',
       Properties: {
@@ -69,7 +69,7 @@ export function cloudformationResources({
                 Action: ['logs:PutLogEvents', 'logs:CreateLogStream'],
                 Resource: [
                   { 'Fn::GetAtt': ['OpenSearchAuditLogGroup', 'Arn'] },
-                  { 'Fn::GetAtt': ['OpenSearchApplicationLogGroup', 'Arn'] },
+                  // { 'Fn::GetAtt': ['OpenSearchApplicationLogGroup', 'Arn'] },
                 ],
               },
             ],
@@ -116,12 +116,12 @@ export function cloudformationResources({
             },
             Enabled: true,
           },
-          ES_APPLICATION_LOGS: {
-            CloudWatchLogsLogGroupArn: {
-              'Fn::GetAtt': ['OpenSearchApplicationLogGroup', 'Arn'],
-            },
-            Enabled: true,
-          },
+          // ES_APPLICATION_LOGS: {
+          //   CloudWatchLogsLogGroupArn: {
+          //     'Fn::GetAtt': ['OpenSearchApplicationLogGroup', 'Arn'],
+          //   },
+          //   Enabled: true,
+          // },
         },
         NodeToNodeEncryptionOptions: { Enabled: true },
       },
